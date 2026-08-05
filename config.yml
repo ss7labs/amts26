@@ -1,0 +1,10 @@
+database:
+  type: postgres #sqlite # или postgres
+
+  #name: toughradius.db
+  # Для PostgreSQL:
+  host: localhost
+  port: 5434
+  user: postgres
+  passwd: pwd
+

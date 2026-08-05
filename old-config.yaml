@@ -1,0 +1,13 @@
+server:
+  host: localhost
+  port: 8080
+
+
+database:
+  type: postgres
+  user: postgres
+  pass: pwd
+  host: localhost
+  port: 5433
+  name: amts
+
