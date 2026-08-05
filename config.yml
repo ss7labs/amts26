@@ -1,10 +1,21 @@
+system:
+  debug: false
+
 database:
   type: postgres #sqlite # или postgres
 
-  #name: toughradius.db
+  name: amts #name: toughradius.db
   # Для PostgreSQL:
   host: localhost
   port: 5434
   user: postgres
   passwd: pwd
+    #max_conn: 50
+    #idle_conn: 5
+    #debug: true
+
+logger:
+  mode: production
+  file_enable: false
+  filename: /tmp/test.log
 
