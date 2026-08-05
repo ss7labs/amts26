@@ -10,9 +10,9 @@ database:
   port: 5434
   user: postgres
   passwd: pwd
-    #max_conn: 50
-    #idle_conn: 5
-    #debug: true
+  max_conn: 50
+  idle_conn: 5
+  debug: true
 
 logger:
   mode: production

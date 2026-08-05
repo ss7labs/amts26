@@ -74,4 +74,25 @@ logger:
 	if cfg.System.Debug {
 		t.Error("Expected Debug to be false")
 	}
+
+	if cfg.Database.Type != "postgres" {
+		t.Errorf("Expected Database.Type 'postgres', got '%s'", cfg.Database.Type)
+	}
+
+	if cfg.Database.Host != "localhost" {
+		t.Errorf("Expected Database.Host 'localhost', got '%s'", cfg.Database.Host)
+	}
+
+	if cfg.Database.Port != 5434 {
+		t.Errorf("Expected Database.Port 5434, got %d", cfg.Database.Port)
+	}
+
+	if cfg.Database.Name != "amts" {
+		t.Errorf("Expected Database.Name 'amts', got '%s'", cfg.Database.Name)
+	}
+
+	if cfg.Database.MaxConn != 50 {
+		t.Errorf("Expected Database.MaxConn 50, got %d", cfg.Database.MaxConn)
+	}
+
 }
