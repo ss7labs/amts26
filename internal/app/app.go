@@ -13,6 +13,10 @@ type Application struct {
 	gormDB    *gorm.DB
 }
 
+var (
+	_ AppContext = (*Application)(nil)
+)
+
 func NewApplication(cfg *config.AppConfig) *Application {
 	app := &Application{
 		appConfig: cfg,
@@ -21,6 +25,9 @@ func NewApplication(cfg *config.AppConfig) *Application {
 }
 func (a *Application) DB() *gorm.DB {
 	return a.gormDB
+}
+func (a *Application) Config() *config.AppConfig {
+	return a.appConfig
 }
 
 func (a *Application) Init() {
