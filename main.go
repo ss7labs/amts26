@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	nolog    = flag.Bool("nolog", true, "logger disable")
+	nolog    = flag.Bool("nolog", false, "logger disable")
 	printcfg = flag.Bool("printcfg", false, "print config")
 	conffile = flag.String("c", "", "config yaml file")
 	period   = flag.String("period", "", "YYYYMM month for report")
