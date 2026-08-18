@@ -58,7 +58,7 @@ var DefaultAppConfig = &AppConfig{
 	Database: DBConfig{
 		Type:     "postgres",  // Default to SQLite for development and testing
 		Host:     "127.0.0.1", // PostgreSQL configuration (used when type is postgres)
-		Port:     5434,
+		Port:     5433,
 		Name:     "amts", // SQLite: database filename; PostgreSQL: database name
 		User:     "postgres",
 		Passwd:   "pwd",

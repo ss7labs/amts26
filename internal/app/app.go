@@ -5,12 +5,14 @@ import (
 	"os"
 
 	"github.com/ss7labs/amts26/config"
+	"github.com/ss7labs/amts26/pkg/rtprefix"
 	"gorm.io/gorm"
 )
 
 type Application struct {
 	appConfig *config.AppConfig
 	gormDB    *gorm.DB
+	ps        *rtprefix.PrefixStore
 }
 
 var (
@@ -23,6 +25,12 @@ func NewApplication(cfg *config.AppConfig) *Application {
 	}
 	return app
 }
+func (a *Application) SetPrefixStore(ps *rtprefix.PrefixStore) {
+	a.ps = ps
+}
+func (a *Application) GetPrefixStore() *rtprefix.PrefixStore {
+	return a.ps
+}
 func (a *Application) DB() *gorm.DB {
 	return a.gormDB
 }
@@ -30,9 +38,16 @@ func (a *Application) Config() *config.AppConfig {
 	return a.appConfig
 }
 
-func (a *Application) Init() {
-	slog.SetDefault(a.setLogger())
-	a.gormDB = getDatabase(a.appConfig.Database)
+func (a *Application) Init(nolog bool) {
+	var logger *slog.Logger
+	if nolog {
+		logger = slog.New(slog.DiscardHandler)
+
+	} else {
+		logger = a.setLogger()
+	}
+	slog.SetDefault(logger)
+	a.gormDB = getDatabase(a.appConfig.Database, logger)
 	slog.Info("DB driver loaded", "DB type", a.appConfig.Database.Type)
 }
 func (a *Application) setLogger() *slog.Logger {
@@ -44,7 +59,7 @@ func (a *Application) setLogger() *slog.Logger {
 		Level: logLevel,
 	}
 	// 2. Create the handler (slog.NewTextHandler or slog.NewJSONHandler)
-	handler := slog.NewTextHandler(os.Stdout, opts)
+	handler := slog.NewTextHandler(os.Stderr, opts)
 	// 3. Set it as the application-wide default logger
 	logger := slog.New(handler)
 	return logger
