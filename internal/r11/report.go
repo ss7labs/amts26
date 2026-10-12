@@ -2,6 +2,7 @@ package r11
 
 import (
 	"fmt"
+	"math"
 	"regexp"
 	"strings"
 
@@ -201,13 +202,22 @@ const (
 	AZ = "Azerbaijan"
 	KR = "Korea (Rep.)"
 	TH = "Thailand"
+	MY = "Malaysia"
+	VN = "Viet Nam"
+	IN = "India"
 )
 
+var round_0_60_60 map[string]any = map[string]any{
+	IN: nil,
+}
 var roundCountries map[string]any = map[string]any{
 	CN: nil,
 	AZ: nil,
 	KR: nil,
 	TH: nil,
+	MY: nil,
+	VN: nil,
+	IN: nil,
 }
 
 func (rp *report) roundDuration(country, bnum string, durationRaw int) (seconds int) {
@@ -224,6 +234,13 @@ func (rp *report) roundDuration(country, bnum string, durationRaw int) (seconds 
 	_, ok := roundCountries[country]
 	if ok && durationRaw < 60 {
 		seconds = 60
+		return
+	}
+	// India rounding as 0-60-60
+	// if duration < 60 then above rounding
+	_, ok = round_0_60_60[country]
+	if ok && durationRaw > 60 {
+		seconds = int(math.Ceil(float64(durationRaw)/60) * 60)
 		return
 	}
 
