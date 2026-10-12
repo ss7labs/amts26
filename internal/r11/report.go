@@ -231,6 +231,7 @@ func (rp *report) roundDuration(country, bnum string, durationRaw int) (seconds 
 	roundByPrefix("81025")
 	roundByPrefix("81022")
 
+	//Rounding as 0-60
 	_, ok := roundCountries[country]
 	if ok && durationRaw < 60 {
 		seconds = 60
@@ -244,6 +245,7 @@ func (rp *report) roundDuration(country, bnum string, durationRaw int) (seconds 
 		return
 	}
 
+	//Rounding as 0-60-1
 	seconds = durationRaw
 	return
 }

@@ -1,0 +1,20 @@
+create function calculate_billing_duration(
+    callDuration int,
+    initialMinimum int,
+    firstIncrement int,
+    subsequentIncrement int
+) returns int deterministic
+begin
+    return If (initialMinimum > callDuration,
+        initialMinimum,
+        If (firstIncrement > callDuration,
+            firstIncrement,
+            If (subsequentIncrement = 1,
+                callDuration,
+                Ceil(callDuration/subsequentIncrement)
+                    * subsequentIncrement
+            )
+        )
+    );
+end;
+
