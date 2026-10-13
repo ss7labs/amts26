@@ -205,10 +205,15 @@ const (
 	MY = "Malaysia"
 	VN = "Viet Nam"
 	IN = "India"
+	SG = "Singapore"
+	ET = "Ethiopia"
+	MM = "Myanmar"
+	ID = "Indonesia"
 )
 
 var round_0_60_60 map[string]any = map[string]any{
 	IN: nil,
+	MM: nil,
 }
 var roundCountries map[string]any = map[string]any{
 	CN: nil,
@@ -218,6 +223,10 @@ var roundCountries map[string]any = map[string]any{
 	MY: nil,
 	VN: nil,
 	IN: nil,
+	SG: nil,
+	ET: nil,
+	MM: nil,
+	ID: nil,
 }
 
 func (rp *report) roundDuration(country, bnum string, durationRaw int) (seconds int) {
